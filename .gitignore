@@ -1,0 +1,62 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code settings
+.vscode/
+
+## Visual Studio settings
+.vs/
+
+## Rider settings
+.idea/
+
+## Backup & crash files
+*.bak
+*.swp
+*.swo
+*.tmp
+
+## OS-specific
+.DS_Store
+Thumbs.db
+
+## NuGet packages
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+# if you need to commit NuGet.config, remove below
+.nuget/
+
+## Entity Framework Migrations snapshot build files
+*_i.c
+*_p.c
+*_t.c
+
+## Dotnet tools
+.dotnet/
+
+## Others
+*.dbmdl
+*.jfm
+*.tlog
+
+# Publish outputs
+publish/
+out/
+
+# Logs
+*.log
+
+# Sensitive files (if you add secrets)
+secrets.json
+appsettings.*.local.json
