@@ -1,6 +1,9 @@
-﻿namespace ProductOrderApi.Domain.Events
+﻿using MediatR;
+using ProductOrderApi.Domain.Events;
+
+namespace ProductOrderApi.Application.Features.Products.Events
 {
-    public class StockLowEvent : DomainEvent
+    public class StockLowEvent : DomainEvent, INotification
     {
         public int ProductId { get; }
         public string ProductName { get; }

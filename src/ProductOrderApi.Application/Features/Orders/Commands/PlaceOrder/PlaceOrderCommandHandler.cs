@@ -4,8 +4,10 @@ using ProductOrderApi.Application.Common.DTOs;
 using ProductOrderApi.Application.Common.Interfaces;
 using ProductOrderApi.Application.Features.Orders.Command.PlaceOrder;
 using ProductOrderApi.Application.Features.Orders.Dtos;
+using ProductOrderApi.Application.Features.Orders.Events;
+using ProductOrderApi.Application.Features.Products.Events;
 using ProductOrderApi.Domain.Entities;
-using ProductOrderApi.Domain.Events;
+
 
 namespace ProductOrderApi.Application.Features.Orders.Commands.PlaceOrder
 {

@@ -1,6 +1,9 @@
-﻿namespace ProductOrderApi.Domain.Events
+﻿using MediatR;
+using ProductOrderApi.Domain.Events;
+
+namespace ProductOrderApi.Application.Features.Orders.Events
 {
-    public class OrderPlacedEvent : DomainEvent
+    public class OrderPlacedEvent : DomainEvent, INotification
     {
         public int OrderId { get; }
         public string UserId { get; }
