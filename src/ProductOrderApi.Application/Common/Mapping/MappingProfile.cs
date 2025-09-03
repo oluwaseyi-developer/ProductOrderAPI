@@ -5,7 +5,7 @@ using ProductOrderApi.Application.Features.Products.Dtos;
 using ProductOrderApi.Application.Features.Users.Dtos;
 using ProductOrderApi.Domain.Entities;
 
-namespace ProductOrderApi.Application.Mapping
+namespace ProductOrderApi.Application.Common.Mapping
 {
     public class MappingProfile : Profile
     {

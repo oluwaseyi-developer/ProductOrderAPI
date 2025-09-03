@@ -3,8 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductOrderApi.Application.Common.Interfaces;
 using ProductOrderApi.Application.Common.Interfaces.Repositories;
+using ProductOrderApi.Application.Common.Interfaces.Services;
 using ProductOrderApi.Infrastructure.Data;
 using ProductOrderApi.Infrastructure.Repositories;
+using ProductOrderApi.Infrastructure.Services;
 
 namespace ProductOrderApi.Infrastructure
 {
@@ -23,6 +25,11 @@ namespace ProductOrderApi.Infrastructure
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            
+            // Services
+            services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             return services;
         }
