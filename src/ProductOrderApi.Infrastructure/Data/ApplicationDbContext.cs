@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductOrderApi.Domain.Entities;
 
 namespace ProductOrderApi.Infrastructure.Data
@@ -69,11 +70,19 @@ namespace ProductOrderApi.Infrastructure.Data
 
                 entity.HasIndex(u => u.Email).IsUnique();
 
+                var rolesComparer = new ValueComparer<List<string>>(
+                    (c1, c2) => c1.SequenceEqual(c2),
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                    c => c.ToList()
+                );
+
                 entity.Property(u => u.Roles)
                       .HasConversion(
-                      v => string.Join(',', v),
-                      v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+                          v => string.Join(',', v),
+                          v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList())
+                      .Metadata.SetValueComparer(rolesComparer);
             });
+
         }
     }
 }
