@@ -51,7 +51,7 @@ ProductOrderApi/
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-github-repo-url>
+git clone https://github.com/oluwaseyi-developer/ProductOrderAPI.git
 cd ProductOrderApi
 ```
 
