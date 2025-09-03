@@ -11,11 +11,15 @@
 
         public Product(string name, string description, decimal price, int stockQuantity)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException(nameof(name));
+
             Name = name;
             Description = description;
             Price = price;
             StockQuantity = stockQuantity;
         }
+
 
         public void Update(string name, string description, decimal price)
         {

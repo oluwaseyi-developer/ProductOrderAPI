@@ -7,6 +7,7 @@ using ProductOrderApi.Application.Features.Orders.Command.PlaceOrder;
 using ProductOrderApi.Application.Features.Orders.Commands.PlaceOrder;
 using ProductOrderApi.Application.Features.Orders.Dtos;
 using ProductOrderApi.Domain.Entities;
+using Xunit;
 
 namespace ProductOrderApi.Application.UnitTests.Handlers
 {
@@ -30,6 +31,8 @@ namespace ProductOrderApi.Application.UnitTests.Handlers
         {
             // Arrange
             var product = new Product("Test Product", "Description", 10m, 100);
+            typeof(Product).GetProperty("Id")!.SetValue(product, 1);
+
             var orderItems = new List<OrderItemRequest> { new() { ProductId = 1, Quantity = 2 } };
             var command = new PlaceOrderCommand("user123", orderItems);
 
@@ -57,6 +60,8 @@ namespace ProductOrderApi.Application.UnitTests.Handlers
         {
             // Arrange
             var product = new Product("Test Product", "Description", 10m, 1);
+            typeof(Product).GetProperty("Id")!.SetValue(product, 1);
+
             var orderItems = new List<OrderItemRequest> { new() { ProductId = 1, Quantity = 2 } };
             var command = new PlaceOrderCommand("user123", orderItems);
 

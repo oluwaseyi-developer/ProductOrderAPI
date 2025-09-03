@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using ProductOrderApi.Application.Common.Interfaces;
 using ProductOrderApi.Application.Common.Interfaces.Repositories;
-using ProductOrderApi.Infrastructure.Repositories;
 
 namespace ProductOrderApi.Infrastructure.Data
 {
@@ -14,12 +13,15 @@ namespace ProductOrderApi.Infrastructure.Data
         public IOrderRepository OrderRepository { get; }
         public IUserRepository UserRepository { get; }
 
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context,
+                         IProductRepository productRepository,
+                         IOrderRepository orderRepository,
+                         IUserRepository userRepository)
         {
             _context = context;
-            ProductRepository = new ProductRepository(context);
-            OrderRepository = new OrderRepository(context);
-            UserRepository = new UserRepository(context);
+            ProductRepository = productRepository;
+            OrderRepository = orderRepository;
+            UserRepository = userRepository;
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -47,21 +49,32 @@ namespace ProductOrderApi.Infrastructure.Data
             finally
             {
                 _transaction?.Dispose();
-                _transaction = null!;
+                _transaction = null;
             }
         }
 
         public async Task RollbackTransactionAsync()
         {
-            await _transaction?.RollbackAsync();
-            _transaction?.Dispose();
-            _transaction = null!;
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+                _transaction.Dispose();
+                _transaction = null;
+            }
         }
 
         public void Dispose()
         {
             _transaction?.Dispose();
             _context?.Dispose();
+
+            // Dispose repositories if they implement IDisposable
+            if (ProductRepository is IDisposable productRepo)
+                productRepo.Dispose();
+            if (OrderRepository is IDisposable orderRepo)
+                orderRepo.Dispose();
+            if (UserRepository is IDisposable userRepo)
+                userRepo.Dispose();
         }
     }
 }

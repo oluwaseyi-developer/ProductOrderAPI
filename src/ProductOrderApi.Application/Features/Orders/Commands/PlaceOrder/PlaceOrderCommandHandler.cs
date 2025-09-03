@@ -45,21 +45,22 @@ namespace ProductOrderApi.Application.Features.Orders.Commands.PlaceOrder
                     if (product.StockQuantity < item.Quantity)
                         return Result<OrderDto>.Failure($"Insufficient stock for product {product.Name}");
 
-                    // Create order item and decrease stock
                     var orderItem = new OrderItem(product, item.Quantity);
                     orderItems.Add(orderItem);
                     product.DecreaseStock(item.Quantity);
 
                     await _unitOfWork.ProductRepository.UpdateAsync(product);
 
-                    // Check for low stock and raise event
-                    if (product.StockQuantity < 10) // Threshold for low stock
+                    if (product.StockQuantity < 10) // Threshold
                     {
-                        await _mediator.Publish(new StockLowEvent(product.Id, product.Name, product.StockQuantity), cancellationToken);
+                        await _mediator.Publish(
+                            new StockLowEvent(product.Id, product.Name, product.StockQuantity),
+                            cancellationToken
+                        );
                     }
                 }
 
-                // Create order
+                // Create and save order
                 var order = new Order(request.UserId, orderItems);
                 order.CompleteOrder();
 
@@ -74,9 +75,15 @@ namespace ProductOrderApi.Application.Features.Orders.Commands.PlaceOrder
             }
             catch (Exception ex)
             {
-                await _unitOfWork.RollbackTransactionAsync();
                 return Result<OrderDto>.Failure($"Failed to place order: {ex.Message}");
             }
+            finally
+            {
+                // Always rollback if transaction wasn't committed
+                await _unitOfWork.RollbackTransactionAsync();
+            }
         }
+
     }
+
 }

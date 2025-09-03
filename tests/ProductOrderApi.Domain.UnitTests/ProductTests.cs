@@ -1,5 +1,5 @@
 ﻿using ProductOrderApi.Domain.Entities;
-using ProductOrderApi.Domain.Enums;
+using Xunit;
 
 namespace ProductOrderApi.Domain.UnitTests
 {

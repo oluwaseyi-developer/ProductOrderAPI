@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using ProductOrderApi.API.Filters;
 using ProductOrderApi.API.Middleware;
 using ProductOrderApi.Application;
 using ProductOrderApi.Infrastructure;
 using ProductOrderApi.Infrastructure.Data;
-using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
