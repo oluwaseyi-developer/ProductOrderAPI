@@ -172,16 +172,7 @@ tests/
 
 ---
 
-## 📈 Production Considerations
-- Add **Redis caching** for hot data
-- Implement **rate limiting**
-- Configure **health checks**
-- Apply strict **CORS policies**
-- Use **environment-specific config**
-- Add **distributed tracing** for microservices
-- Set up **CI/CD pipeline**
 
----
 
 ## 📝 License
-This project was created as part of a **technical assessment** for a job application.  
+This project was created By Adetogun Samuel Abidemi as part of a **technical assessment** for a job application.  
